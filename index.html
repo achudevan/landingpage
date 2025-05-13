@@ -330,6 +330,176 @@
     </div>
   </div>
 
+
+  <!-- ✨ Testimonials Section -->
+<section class="testimonials">
+  <!-- (The code I gave you goes here) -->
+
+<section class="testimonial-cube-section">
+  <h2>What Our Readers Say</h2>
+  <div class="cube-slider">
+    <div class="cube" id="testimonialCube">
+      <!-- Face 1 -->
+      <div class="face front">
+        <img src="https://i.pravatar.cc/100?u=alia" alt="Alia Parker">
+        <h3>Alia Parker</h3>
+        <div class="stars">★★★★★</div>
+        <p>“It is a proficient article that you have shared here. Looking for Fishing Equipment Online — great article. Continue doing this.”</p>
+        <span class="source">– Fishing Gear Dubai</span>
+      </div>
+      <!-- Face 2 -->
+      <div class="face right">
+        <img src="https://i.pravatar.cc/100?u=bunnycart" alt="Bunnycart">
+        <h3>Bunnycart</h3>
+        <div class="stars">★★★★★</div>
+        <p>“This is a well-informed article you have shared about the topic. Thanks to you.”</p>
+      </div>
+      <!-- Face 3 -->
+      <div class="face back">
+        <img src="https://i.pravatar.cc/100?u=coosbay" alt="coosbaycharters">
+        <h3>coosbaycharters</h3>
+        <div class="stars">★★★★☆</div>
+        <p>“I regularly check articles like this and yours was very instructive. Thank you.”</p>
+      </div>
+      <!-- Face 4 (optional expansion) -->
+      <div class="face left">
+        <img src="https://i.pravatar.cc/100?u=readerx" alt="Reader X">
+        <h3>Reader X</h3>
+        <div class="stars">★★★★★</div>
+        <p>“Super helpful. Keep up the amazing work. Subscribed!”</p>
+      </div>
+    </div>
+  </div>
+  <div class="cube-controls">
+    <button onclick="rotateCube(-1)">‹</button>
+    <button onclick="rotateCube(1)">›</button>
+  </div>
+</section>
+
+<style>
+  .testimonial-cube-section {
+    text-align: center;
+    padding: 60px 20px;
+    background: #f4f4f4;
+  }
+
+  .testimonial-cube-section h2 {
+    font-size: 2em;
+    margin-bottom: 40px;
+    color: #333;
+  }
+
+  .cube-slider {
+    perspective: 1000px;
+    width: 320px;
+    height: 300px;
+    margin: auto;
+    position: relative;
+  }
+
+  .cube {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform 1s ease-in-out;
+  }
+
+  .face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+  }
+
+  .face img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+
+  .face h3 {
+    margin: 10px 0 5px;
+    color: #25d366;
+  }
+
+  .face p {
+    font-size: 0.9em;
+    color: #444;
+    margin: 10px 0;
+  }
+
+  .stars {
+    color: gold;
+    font-size: 1.2em;
+  }
+
+  .source {
+    font-size: 0.85em;
+    color: #666;
+    margin-top: 8px;
+  }
+
+  /* Positioning cube faces */
+  .front  { transform: rotateY(0deg) translateZ(160px); }
+  .right  { transform: rotateY(90deg) translateZ(160px); }
+  .back   { transform: rotateY(180deg) translateZ(160px); }
+  .left   { transform: rotateY(-90deg) translateZ(160px); }
+
+  .cube-controls {
+    margin-top: 25px;
+  }
+
+  .cube-controls button {
+    background-color: #25d366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.4em;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 0 10px;
+  }
+
+  .cube-controls button:hover {
+    background-color: #1ea857;
+  }
+</style>
+
+<script>
+  let angle = 0;
+  let currentFace = 0;
+  const totalFaces = 4; // total sides (front, right, back, left)
+
+  function rotateCube(direction = 1) {
+    currentFace = (currentFace + direction + totalFaces) % totalFaces;
+    angle = currentFace * -90;
+    document.getElementById("testimonialCube").style.transform = `rotateY(${angle}deg)`;
+  }
+
+  // Auto rotate every 5 seconds
+  setInterval(() => {
+    rotateCube(1);
+  }, 5000);
+</script>
+
+  
+</section>
+
+<!-- 👇 Your existing footer -->
+
+
+  
+
   <!-- Footer -->
   <footer>
     <p>Follow us for updates | © 2025 Nature Scientist</p>
