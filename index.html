@@ -350,6 +350,121 @@
   });
 </script>
 
+
+<!-- WhatsApp Popup Widget -->
+<div id="whatsapp-widget">
+  <div class="wa-popup" id="wa-popup">
+    <div class="wa-header">
+      <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon">
+      <div class="wa-text">
+        <strong>Chat with us</strong>
+        <p>Hi! Click below to start a WhatsApp chat.</p>
+      </div>
+      <span id="wa-close">&times;</span>
+    </div>
+    <a href="https://wa.me/917994210514" target="_blank" class="wa-button">Start Chat</a>
+  </div>
+
+  <div class="wa-float" id="wa-open">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Chat">
+  </div>
+</div>
+
+<!-- Styles -->
+<style>
+  #whatsapp-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+  }
+
+  .wa-float {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  .wa-float img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .wa-popup {
+    display: none;
+    width: 260px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+
+  .wa-header {
+    display: flex;
+    align-items: center;
+    background-color: #25d366;
+    color: #fff;
+    padding: 10px;
+    position: relative;
+  }
+
+  .wa-header img {
+    width: 40px;
+    margin-right: 10px;
+  }
+
+  .wa-header .wa-text {
+    flex-grow: 1;
+  }
+
+  #wa-close {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+
+  .wa-button {
+    display: block;
+    text-align: center;
+    background-color: #25d366;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 0 0 10px 10px;
+    transition: background 0.3s;
+  }
+
+  .wa-button:hover {
+    background-color: #20bd5f;
+  }
+</style>
+
+<!-- Script -->
+<script>
+  const waPopup = document.getElementById("wa-popup");
+  const waOpen = document.getElementById("wa-open");
+  const waClose = document.getElementById("wa-close");
+
+  waOpen.onclick = () => {
+    waPopup.style.display = "block";
+    waOpen.style.display = "none";
+  };
+
+  waClose.onclick = () => {
+    waPopup.style.display = "none";
+    waOpen.style.display = "block";
+  };
+</script>
+
+
+
   
   
 </body>
