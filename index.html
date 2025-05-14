@@ -313,6 +313,81 @@
     </div>
   </div>
 
+
+<div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 50px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+  <!-- Readers Worldwide -->
+  <div style="background: linear-gradient(135deg, #ff6b6b, #ff4757); color: #fff; padding: 20px 25px; border-radius: 14px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); text-align: center; min-width: 180px; transition: transform 0.3s;">
+    <div style="font-size: 15px; font-weight: 600; margin-bottom: 5px;">Readers Worldwide</div>
+    <div id="readersCount" style="font-size: 30px; font-weight: bold;">0+</div>
+  </div>
+
+  <!-- Articles Published -->
+  <div style="background: linear-gradient(135deg, #3498db, #2980b9); color: #fff; padding: 20px 25px; border-radius: 14px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); text-align: center; min-width: 180px; transition: transform 0.3s;">
+    <div style="font-size: 15px; font-weight: 600; margin-bottom: 5px;">Articles Published</div>
+    <div id="articlesCount" style="font-size: 30px; font-weight: bold;">0+</div>
+  </div>
+
+  <!-- Countries Reached -->
+  <div style="background: linear-gradient(135deg, #9b59b6, #8e44ad); color: #fff; padding: 20px 25px; border-radius: 14px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); text-align: center; min-width: 180px; transition: transform 0.3s;">
+    <div style="font-size: 15px; font-weight: 600; margin-bottom: 5px;">Countries Reached</div>
+    <div id="countriesCount" style="font-size: 30px; font-weight: bold;">0+</div>
+  </div>
+
+  <!-- Monthly Visitors -->
+  <div style="background: linear-gradient(135deg, #1abc9c, #16a085); color: #fff; padding: 20px 25px; border-radius: 14px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); text-align: center; min-width: 180px; transition: transform 0.3s;">
+    <div style="font-size: 15px; font-weight: 600; margin-bottom: 5px;">Monthly Visitors</div>
+    <div id="visitorsCount" style="font-size: 30px; font-weight: bold;">0+</div>
+  </div>
+
+  <!-- Years Online -->
+  <div style="background: linear-gradient(135deg, #f39c12, #e67e22); color: #fff; padding: 20px 25px; border-radius: 14px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); text-align: center; min-width: 180px; transition: transform 0.3s;">
+    <div style="font-size: 15px; font-weight: 600; margin-bottom: 5px;">Years Online</div>
+    <div id="yearsCount" style="font-size: 30px; font-weight: bold;">0+</div>
+  </div>
+
+</div>
+
+<script>
+// Stats data
+const stats = {
+  readersCount: 72228,
+  articlesCount: 100,
+  countriesCount: 82,
+  visitorsCount: 15238,
+  yearsCount: 5
+};
+
+// Animate function with easing
+function animateStat(id, end, duration = 1800) {
+  const el = document.getElementById(id);
+  let start = 0;
+  const startTime = performance.now();
+
+  function update(time) {
+    const progress = Math.min((time - startTime) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 4); // easeOutQuart
+    const current = Math.floor(ease * end);
+    el.textContent = current.toLocaleString() + "+";
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    }
+  }
+
+  requestAnimationFrame(update);
+}
+
+// Start animation on load
+document.addEventListener("DOMContentLoaded", function () {
+  for (const id in stats) {
+    animateStat(id, stats[id]);
+  }
+});
+</script>
+
+
+  
+
   <!-- Featured Blog Posts -->
   <div class="section posts">
     <h2>Featured Blog Posts</h2>
