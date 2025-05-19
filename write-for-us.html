@@ -175,46 +175,126 @@
 
     <div class="content-box" id="form">
       <h2>Submit Your Pitch</h2>
-       <form action="https://formspree.io/f/xgvklkbl" method="POST" enctype="multipart/form-data">
 
-       <!-- Hidden Contributor Type -->
-    <input type="hidden" name="contributor_type" id="contributor_type" value="free" />
+<!-- Thank You Message Section (Hidden by default) -->
+<div id="thankYouMessage" style="display:none; text-align:center; animation:fadeIn 0.8s ease-in-out;">
+  <div class="success-icon">✅</div>
+  <h3>Thank You for Your Submission!</h3>
+  <p id="responseText"></p>
+  <a href="https://www.thenaturescientist.com/" class="back-home-btn">← Back to Homepage</a>
+</div>
 
-        <input type="text" name="name" placeholder="Your Name" required />
-        <input type="email" name="email" placeholder="Your Email" required />
-        <input type="text" name="title" placeholder="Proposed Title" required />
-        <textarea name="message" rows="5" placeholder="Brief summary of your article or links to past work" required></textarea>
-         <label for="file">Attach Article (Optional)</label>
-      <input type="file" name="attachment" accept=".doc,.docx,.pdf,.txt">
+<!-- Submission Form -->
+<form id="submissionForm" action="https://formspree.io/f/xgvklkbl" method="POST" enctype="multipart/form-data">
+  <input type="text" name="name" placeholder="Your Name" required />
+  <input type="email" name="email" placeholder="Your Email" required />
+  <input type="text" name="title" placeholder="Proposed Article Title" required />
+  <textarea name="message" rows="5" placeholder="Brief summary or sample link" required></textarea>
 
+  <label for="file">Attach Article (Optional)</label>
+  <input type="file" name="attachment" accept=".doc,.docx,.pdf,.txt" />
 
-     <!-- Payment Proof Section (only for paid contributors) -->
-    <div id="payment-proof" style="display: none; margin-top: 20px;">
-      <p><strong>You're submitting as a Paid Contributor</strong></p>
-      <p>Please complete the $5 payment via UPI below and enter your transaction ID:</p>
-      
-      <p>UPI ID: <strong>akshaypn1999-1@okhdfcbank</strong></p>
-      <input type="text" name="transaction_id" placeholder="Transaction ID" />
-    </div>
-
-
-        <button type="submit">Send Your Pitch</button>
-      </form>
-    </div>
+  <!-- Payment Proof Section (only for paid contributors) -->
+  <div id="payment-proof" style="display: none; margin-top: 20px;">
+    <p><strong>You're submitting as a Paid Contributor</strong></p>
+    <p>Please complete the $5 payment via UPI below and enter your transaction ID:</p>
+    <p>UPI ID: <strong>akshaypn1999-1@okhdfcbank</strong></p>
+    <input type="text" name="transaction_id" placeholder="Transaction ID" />
   </div>
 
-<script>
-  function setContributorType(type) {
-    document.getElementById('contributor_type').value = type;
+  <!-- Hidden Field to track contributor type -->
+  <input type="hidden" name="contributorType" id="contributorType" value="free" />
 
-    const paymentSection = document.getElementById('payment-proof');
+  <div class="cta-buttons">
+    <button type="submit" onclick="setContributorType('free')">Submit as Free Contributor</button>
+    <button type="submit" onclick="setContributorType('paid')">Upgrade to Paid Contributor</button>
+  </div>
+</form>
+
+<!-- STYLES -->
+<style>
+  .success-icon {
+    font-size: 3rem;
+    color: #28a745;
+    margin-bottom: 10px;
+    animation: bounce 0.8s ease;
+  }
+
+  @keyframes bounce {
+    0% { transform: scale(0.9); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  .back-home-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s;
+  }
+
+  .back-home-btn:hover {
+    background: #218838;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<!-- SCRIPT -->
+<script>
+  let contributorType = 'free';
+
+  function setContributorType(type) {
+    contributorType = type;
+    document.getElementById('contributorType').value = type;
+
+    const proofSection = document.getElementById('payment-proof');
     if (type === 'paid') {
-      paymentSection.style.display = 'block';
+      proofSection.style.display = 'block';
     } else {
-      paymentSection.style.display = 'none';
+      proofSection.style.display = 'none';
     }
   }
+
+  document.getElementById('submissionForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    }).then(response => {
+      if (response.ok) {
+        form.style.display = 'none';
+        const responseBox = document.getElementById('thankYouMessage');
+        const responseText = document.getElementById('responseText');
+
+        if (contributorType === 'paid') {
+          responseText.innerHTML = `We've received your <strong>premium submission</strong> along with your payment info. Our editorial team will review and prioritize your article. Expect a quick response. Thank you for supporting our platform!`;
+        } else {
+          responseText.innerHTML = `Thank you for submitting as a free contributor! Our team will review your submission soon. We appreciate your valuable input to our site.`;
+        }
+
+        responseBox.style.display = 'block';
+      } else {
+        alert('There was an error submitting the form. Please try again.');
+      }
+    }).catch(() => {
+      alert('Failed to submit. Please check your internet connection and try again.');
+    });
+  });
 </script>
+
 
 
 </body>
