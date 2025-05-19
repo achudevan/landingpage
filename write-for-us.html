@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Write for Us – The Nature Scientist</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://images.unsplash.com/photo-1503264116251-35a269479413') no-repeat center center/cover;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    .overlay {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 50px 20px;
+      animation: fadeIn 2s ease;
+    }
+    h1, h2, h3 {
+      text-align: center;
+      margin-bottom: 20px;
+      animation: slideUp 1.5s ease;
+    }
+    .content-box {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 30px auto;
+      max-width: 800px;
+      backdrop-filter: blur(10px);
+      animation: fadeIn 2s ease;
+    }
+    .benefits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .card {
+      flex: 1;
+      min-width: 280px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    ul {
+      text-align: left;
+      padding-left: 20px;
+    }
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .cta-buttons a {
+      padding: 12px 25px;
+      background: #00b894;
+      color: #fff;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    .cta-buttons a:hover {
+      background: #019875;
+    }
+    form {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      animation: slideUp 2s ease;
+    }
+    input, textarea {
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      width: 100%;
+    }
+    button {
+      background-color: #00cec9;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #00b894;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>Write for Us – Become a Contributor</h1>
+    
+   <p><strong>Are you passionate about nature, health, mysteries, education, or emerging technologies? Join a global community of thinkers and creators. Share your unique insights with a growing audience that values curiosity and knowledge.</strong></p>
+
+
+    <div class="content-box">
+      <h2>Contributor Guidelines</h2>
+      <ul>
+        <li>Content must be original and not published elsewhere.</li>
+        <li>Topics should align with our site: Nature, Environment, Mysteries, Science, Health, Tech, and Education.</li>
+        <li>Minimum word count: 800-1500 words.</li>
+        <li>Relevant images with source credits are welcome.</li>
+        <li>We reserve the right to edit for clarity and SEO optimization.</li>
+      </ul>
+
+        <h2>🚫 Content Restrictions</h2>
+        <p>To maintain a respectful and informative space for our readers, we do not accept:</p>
+      <ul>
+        <li>Content promoting hate, discrimination, or violence.</li>
+        <li>Articles involving political opinions, activism, or targeting any organization.</li>
+        <li>Minimum word count: 800-1500 words.</li>
+        <li>Defamatory, plagiarized, or AI-generated content without human editing.</li>
+        <li>Misleading claims, clickbait, or unverified information.</li>
+      </ul>
+      
+
+
+    </div>
+
+    <div class="content-box">
+      <h2>Contributor Options</h2>
+      <div class="benefits">
+        <div class="card">
+          <h3>🆓 Free Contributor</h3>
+          <ul>
+            <li>Bio mention with your article</li>
+            <li>One backlink to your personal blog</li>
+            <li>Article published within 7–10 days</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>💎 Paid Contributor – $5/month Intro Offer</h3>
+          <ul>
+            <li>Featured on homepage for 5 days</li>
+            <li>Dedicated author page with bio and photo</li>
+            <li>Priority publishing (within 48 hours)</li>
+            <li>More visibility in post recommendations</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cta-buttons">
+  <a href="#form" onclick="setContributorType('free')">Submit as Free Contributor</a>
+  <a href="#form" onclick="setContributorType('paid')">Upgrade to Paid Contributor</a>
+</div>
+
+    </div>
+
+    <div class="content-box" id="form">
+      <h2>Submit Your Pitch</h2>
+       <form action="https://formspree.io/f/xgvklkbl" method="POST" enctype="multipart/form-data">
+
+       <!-- Hidden Contributor Type -->
+    <input type="hidden" name="contributor_type" id="contributor_type" value="free" />
+
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <input type="text" name="title" placeholder="Proposed Title" required />
+        <textarea name="message" rows="5" placeholder="Brief summary of your article or links to past work" required></textarea>
+         <label for="file">Attach Article (Optional)</label>
+      <input type="file" name="attachment" accept=".doc,.docx,.pdf,.txt">
+
+
+     <!-- Payment Proof Section (only for paid contributors) -->
+    <div id="payment-proof" style="display: none; margin-top: 20px;">
+      <p><strong>You're submitting as a Paid Contributor</strong></p>
+      <p>Please complete the $5 payment via UPI below and enter your transaction ID:</p>
+      
+      <p>UPI ID: <strong>akshaypn1999-1@okhdfcbank</strong></p>
+      <input type="text" name="transaction_id" placeholder="Transaction ID" />
+    </div>
+
+
+        <button type="submit">Send Your Pitch</button>
+      </form>
+    </div>
+  </div>
+
+<script>
+  function setContributorType(type) {
+    document.getElementById('contributor_type').value = type;
+
+    const paymentSection = document.getElementById('payment-proof');
+    if (type === 'paid') {
+      paymentSection.style.display = 'block';
+    } else {
+      paymentSection.style.display = 'none';
+    }
+  }
+</script>
+
+
+</body>
+</html>
