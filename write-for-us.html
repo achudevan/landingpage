@@ -284,7 +284,10 @@
         const responseText = document.getElementById('responseText');
 
         if (contributorType === 'paid') {
-          responseText.innerHTML = `We've received your <strong>premium submission</strong> along with your payment info. Our editorial team will review and prioritize your article. Expect a quick response. Thank you for supporting our platform!`;
+          responseText.innerHTML = `<strong>Thank you for your premium submission!</strong>
+Your article has been entered into our priority review queue. Our editorial team will carefully evaluate it, and you can expect a response within the next 24–48 hours.
+
+Please keep an eye on your inbox for further updates. We’re glad to have your contribution as part of our platform’s premium lineup.`;
         } else {
           responseText.innerHTML = `Thank you for submitting as a free contributor! Our team will review your submission soon. We appreciate your valuable input to our site.`;
         }
