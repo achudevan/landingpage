@@ -408,47 +408,99 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   <!-- ✨ Testimonials Section -->
-<section class="testimonials">
-  <!-- (The code I gave you goes here) -->
-
 <section class="testimonial-cube-section">
   <h2>What Our Readers Say</h2>
-  <div class="cube-slider">
-    <div class="cube" id="testimonialCube">
-      <!-- Face 1 -->
-      <div class="face front">
-        <img src="https://i.pravatar.cc/100?u=alia" alt="Alia Parker">
-        <h3>Alia Parker</h3>
-        <div class="stars">★★★★★</div>
-        <p>“It is a proficient article you shared here. Looking for Fishing Equipment Online — great article. Continue doing this.”</p>
-        <span class="source">– Fishing Gear Dubai</span>
-      </div>
-      <!-- Face 2 -->
-      <div class="face right">
-        <img src="https://www.bunnycart.com/pub/media/logo/stores/1/Bunnycart_Final.png" alt="Bunnycart">
-        <h3>Bunnycart</h3>
-        <div class="stars">★★★★★</div>
-        <p>“This is a well-informed article you have shared about the topic. Thanks to you.”</p>
-      </div>
-      <!-- Face 3 -->
-      <div class="face back">
-        <img src="https://i.pravatar.cc/100?u=coosbay" alt="coosbaycharters">
-        <h3>coosbaycharters</h3>
-        <div class="stars">★★★★☆</div>
-        <p>“I regularly check articles like this, and yours was very instructive. Thank you.”</p>
-      </div>
-      <!-- Face 4 (optional expansion) -->
-      <div class="face left">
-        <img src="https://i.pravatar.cc/100?u=readerx" alt="Reader X">
-        <h3>Reader X</h3>
-        <div class="stars">★★★★★</div>
-        <p>“Super helpful. Keep up the amazing work. Subscribed!”</p>
+  <div class="cube-grid">
+    <!-- Cube 1 -->
+    <div class="cube-slider">
+      <div class="cube" id="cube1">
+        <div class="face front">
+          <img src="https://i.pravatar.cc/100?u=alia" alt="Alia Parker">
+          <h3>Alia Parker</h3>
+          <div class="stars">★★★★★</div>
+          <p>“Proficient article. Looking for Fishing Equipment Online — great job!”</p>
+          <span class="source">– Fishing Gear Dubai</span>
+        </div>
+        <div class="face right">
+          <img src="https://i.pravatar.cc/100?u=reader1" alt="Reader 1">
+          <h3>Reader 1</h3>
+          <div class="stars">★★★★☆</div>
+          <p>“Very insightful, appreciate your efforts.”</p>
+        </div>
+        <div class="face back">
+          <img src="https://i.pravatar.cc/100?u=reader2" alt="Reader 2">
+          <h3>Reader 2</h3>
+          <div class="stars">★★★★★</div>
+          <p>“Absolutely loved it. Shared with my group!”</p>
+        </div>
+        <div class="face left">
+          <img src="https://i.pravatar.cc/100?u=reader3" alt="Reader 3">
+          <h3>Reader 3</h3>
+          <div class="stars">★★★★★</div>
+          <p>“So clear and helpful. Following you now.”</p>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="cube-controls">
-    <button onclick="rotateCube(-1)">‹</button>
-    <button onclick="rotateCube(1)">›</button>
+
+    <!-- Cube 2 -->
+    <div class="cube-slider">
+      <div class="cube" id="cube2">
+        <div class="face front">
+          <img src="https://i.pravatar.cc/100?u=coosbay" alt="coosbaycharters">
+          <h3>coosbaycharters</h3>
+          <div class="stars">★★★★☆</div>
+          <p>“Regularly check articles like this. Very instructive.”</p>
+        </div>
+        <div class="face right">
+          <img src="https://i.pravatar.cc/100?u=userA" alt="User A">
+          <h3>User A</h3>
+          <div class="stars">★★★★★</div>
+          <p>“You made this topic so easy to understand.”</p>
+        </div>
+        <div class="face back">
+          <img src="https://i.pravatar.cc/100?u=userB" alt="User B">
+          <h3>User B</h3>
+          <div class="stars">★★★★☆</div>
+          <p>“Thanks for the value you give in your posts.”</p>
+        </div>
+        <div class="face left">
+          <img src="https://i.pravatar.cc/100?u=userC" alt="User C">
+          <h3>User C</h3>
+          <div class="stars">★★★★★</div>
+          <p>“Your blog is now in my bookmarks!”</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cube 3 -->
+    <div class="cube-slider">
+      <div class="cube" id="cube3">
+        <div class="face front">
+          <img src="https://www.bunnycart.com/pub/media/logo/stores/1/Bunnycart_Final.png" alt="Bunnycart">
+          <h3>Bunnycart</h3>
+          <div class="stars">★★★★★</div>
+          <p>“Well-informed article about the topic. Thanks to you.”</p>
+        </div>
+        <div class="face right">
+          <img src="https://i.pravatar.cc/100?u=cart2" alt="Cart2">
+          <h3>Cart2</h3>
+          <div class="stars">★★★★☆</div>
+          <p>“Enjoyed reading. I’ll be back for more.”</p>
+        </div>
+        <div class="face back">
+          <img src="https://i.pravatar.cc/100?u=fishx" alt="FishX">
+          <h3>FishX</h3>
+          <div class="stars">★★★★★</div>
+          <p>“Excellent! Helped me pick the right gear.”</p>
+        </div>
+        <div class="face left">
+          <img src="https://i.pravatar.cc/100?u=cartx" alt="CartX">
+          <h3>CartX</h3>
+          <div class="stars">★★★★★</div>
+          <p>“Loved the clarity and flow.”</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -465,18 +517,25 @@ document.addEventListener("DOMContentLoaded", function () {
     color: #333;
   }
 
+  .cube-grid {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    flex-wrap: wrap;
+  }
+
   .cube-slider {
     perspective: 1000px;
     width: 320px;
     height: 300px;
-    margin: auto;
     position: relative;
+    flex-shrink: 0;
   }
 
   .cube {
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: relative;
     transform-style: preserve-3d;
     transition: transform 1s ease-in-out;
   }
@@ -501,6 +560,7 @@ document.addEventListener("DOMContentLoaded", function () {
     height: 60px;
     border-radius: 50%;
     margin-bottom: 10px;
+    object-fit: cover;
   }
 
   .face h3 {
@@ -525,47 +585,26 @@ document.addEventListener("DOMContentLoaded", function () {
     margin-top: 8px;
   }
 
-  /* Positioning cube faces */
-  .front  { transform: rotateY(0deg) translateZ(160px); }
-  .right  { transform: rotateY(90deg) translateZ(160px); }
-  .back   { transform: rotateY(180deg) translateZ(160px); }
-  .left   { transform: rotateY(-90deg) translateZ(160px); }
-
-  .cube-controls {
-    margin-top: 25px;
-  }
-
-  .cube-controls button {
-    background-color: #25d366;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1.4em;
-    border-radius: 6px;
-    cursor: pointer;
-    margin: 0 10px;
-  }
-
-  .cube-controls button:hover {
-    background-color: #1ea857;
-  }
+  .front  { transform: rotateY(0deg) translateZ(140px); }
+  .right  { transform: rotateY(90deg) translateZ(140px); }
+  .back   { transform: rotateY(180deg) translateZ(140px); }
+  .left   { transform: rotateY(-90deg) translateZ(140px); }
 </style>
 
 <script>
-  let angle = 0;
-  let currentFace = 0;
-  const totalFaces = 4; // total sides (front, right, back, left)
+  const cubes = [
+    { id: "cube1", angle: 0, face: 0 },
+    { id: "cube2", angle: 0, face: 0 },
+    { id: "cube3", angle: 0, face: 0 },
+  ];
 
-  function rotateCube(direction = 1) {
-    currentFace = (currentFace + direction + totalFaces) % totalFaces;
-    angle = currentFace * -90;
-    document.getElementById("testimonialCube").style.transform = `rotateY(${angle}deg)`;
-  }
-
-  // Auto rotate every 5 seconds
-  setInterval(() => {
-    rotateCube(1);
-  }, 5000);
+  cubes.forEach((cube, index) => {
+    setInterval(() => {
+      cube.face = (cube.face + 1) % 4;
+      cube.angle = cube.face * -90;
+      document.getElementById(cube.id).style.transform = `rotateY(${cube.angle}deg)`;
+    }, 5000 + index * 500); // staggered rotation
+  });
 </script>
 
   
