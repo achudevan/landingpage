@@ -592,20 +592,30 @@ document.addEventListener("DOMContentLoaded", function () {
 </style>
 
 <script>
-  const cubes = [
-    { id: "cube1", angle: 0, face: 0 },
-    { id: "cube2", angle: 0, face: 0 },
-    { id: "cube3", angle: 0, face: 0 },
-  ];
+  let currentFace = 0;
+  const totalFaces = 4;
 
-  cubes.forEach((cube, index) => {
-    setInterval(() => {
-      cube.face = (cube.face + 1) % 4;
-      cube.angle = cube.face * -90;
-      document.getElementById(cube.id).style.transform = `rotateY(${cube.angle}deg)`;
-    }, 5000 + index * 500); // staggered rotation
-  });
+  function rotateAllCubes(direction = 1) {
+    currentFace = (currentFace + direction + totalFaces) % totalFaces;
+    const angle = currentFace * -90;
+
+    // Apply rotation to all cubes
+    document.querySelectorAll(".cube").forEach(cube => {
+      cube.style.transform = `rotateY(${angle}deg)`;
+    });
+  }
+
+  // Manual controls call this function
+  function rotateCube(direction = 1) {
+    rotateAllCubes(direction);
+  }
+
+  // Sync all cubes with a single interval
+  setInterval(() => {
+    rotateAllCubes(1);
+  }, 5000);
 </script>
+
 
   
 </section>
