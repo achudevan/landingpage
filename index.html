@@ -389,22 +389,136 @@ document.addEventListener("DOMContentLoaded", function () {
 
   
 
-  <!-- Featured Blog Posts -->
-  <div class="section posts">
-    <h2>Featured Blog Posts</h2>
-    <div class="post">
-      <h4><a href="https://www.thenaturescientist.com/2024/02/hiddenoceansundertheglaciers.html">Hidden oceans under the glaciers</a></h4>
-      <p> Dive Deep: Exploring the Hidden Oceans Beneath Glaciers.</p>
+  <!-- Featured Blog Posts with Thumbnails in Cube Style -->
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f0f2f5;
+  }
+
+  .featured-cube-posts {
+    padding: 60px 20px;
+    text-align: center;
+    background: #f9f9f9;
+  }
+
+  .featured-cube-posts h2 {
+    font-size: 2.4em;
+    color: #1c1c1c;
+    margin-bottom: 50px;
+  }
+
+  .post-cube-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+
+  .post-cube {
+    width: 300px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    color: #fff;
+    background: #ccc;
+  }
+
+  .post-cube:hover {
+    transform: translateY(-10px) scale(1.03) rotateX(2deg) rotateY(2deg);
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.18);
+  }
+
+  .post-cube img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .post-cube .content {
+    padding: 22px;
+    text-align: left;
+  }
+
+  .post-cube h3 {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+  }
+
+  .post-cube p {
+    font-size: 0.96em;
+    margin-bottom: 12px;
+    opacity: 0.9;
+  }
+
+  .post-cube a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 6px 14px;
+    border-radius: 6px;
+    display: inline-block;
+  }
+
+  .post-cube a:hover {
+    background: rgba(255, 255, 255, 0.35);
+  }
+
+  /* Unique gradient backgrounds */
+  .cube1 { background: linear-gradient(135deg, #00c6ff, #0072ff); }
+  .cube2 { background: linear-gradient(135deg, #f7971e, #ffd200); }
+  .cube3 { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+
+  @media (max-width: 960px) {
+    .post-cube-grid {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
+
+<section class="featured-cube-posts">
+  <h2>⭐ Featured Blog Posts</h2>
+  <div class="post-cube-grid">
+
+    <!-- Cube 1 -->
+    <div class="post-cube cube1">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUeG5ej_Ij6rn0QJAkVXOFSNpk9Jy5r2QWNmd6KRtZIrKn3ogqr1o27YmMCv-2TB36YmOjLvCep01TpSCKqT0JiLslEE50WvKvCfJa69-YP9fta93ZEzXNR0sC64RyhhsfHt3z0OgTPPhGNUa5ObQT6iJ-BqFa2GXIcj12uKSXnlgqce85h9zuPo77jyA/s1536/Bard_Generated_Image.jpg" alt="Hidden oceans under glaciers">
+      <div class="content">
+        <h3>Hidden oceans under the glaciers</h3>
+        <p>Dive Deep: Exploring the Hidden Oceans Beneath Glaciers.</p>
+        <a href="https://www.thenaturescientist.com/2024/02/hiddenoceansundertheglaciers.html">Read More</a>
+      </div>
     </div>
-    <div class="post">
-      <h4><a href="https://www.thenaturescientist.com/2025/05/farmwhichpays.html">Plant the Dream, Grow the Hustle: How to Build a Farm That Pays</a></h4>
-      <p>Starting a small farm is not just about cultivating land—it’s about cultivating a life.</p>
+
+    <!-- Cube 2 -->
+    <div class="post-cube cube2">
+      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEihQsLrhccb_rf-0doPJpBXGdg2YxfVPkwWujyuM4gaRTlQaKIpUpAE1y86TeVu97WSttivU3fMCs1P25K7pGEcK-UokaJIozD5xpaIOTziytS7xkpoGNxjs6P4WL0JGh_fqz5rpOQqgdaCfwAfdoUhJzy0px099y_GByU_3P9b88IenRFeosdqDFaRJ_o" alt="Build a Farm That Pays">
+      <div class="content">
+        <h3>Plant the Dream, Grow the Hustle</h3>
+        <p>Starting a small farm is not just about cultivating land—it’s about cultivating a life.</p>
+        <a href="https://www.thenaturescientist.com/2025/05/farmwhichpays.html">Read More</a>
+      </div>
     </div>
-    <div class="post">
-      <h4><a href="https://www.thenaturescientist.com/2024/09/gardening.html">How Gardening Fosters a Healthier Lifestyle</a></h4>
-      <p>Explore how growing your own garden provides a myriad of benefits for your health.</p>
+
+    <!-- Cube 3 -->
+    <div class="post-cube cube3">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjvT7hZ64CTaQTNFcv6KUCjIWm11v7JRU3cq-0H6aBKoz9_2rR6NbwUtpQilgBP3dH1ExUnNSmjQgul5xDAHwFwxSPWbrkd4Viok3gHoXFYHWg-co0V4SqiFF7JO-PBzWv-cSlCZy52aAfjwpJzIWjvfgizgEmWpxm5uepRQF-Xcy2okzMx-HrAcULFY88/s2247/harvest.jpeg" alt="Gardening Lifestyle">
+      <div class="content">
+        <h3>How Gardening Fosters a Healthier Lifestyle</h3>
+        <p>Explore how growing your own garden provides a myriad of benefits for your health.</p>
+        <a href="https://www.thenaturescientist.com/2024/09/gardening.html">Read More</a>
+      </div>
     </div>
+
   </div>
+</section>
+
 
 
   <!-- ✨ Testimonials Section -->
