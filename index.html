@@ -389,7 +389,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   
 
-  <!-- Featured Blog Posts with Thumbnails in Cube Style -->
+<!-- Featured Blog Posts with Thumbnails in Cube Style -->
 <style>
   body {
     font-family: 'Segoe UI', sans-serif;
@@ -410,15 +410,23 @@ document.addEventListener("DOMContentLoaded", function () {
     margin-bottom: 50px;
   }
 
-  .post-cube-grid {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
+  /* Slider container to mask overflow */
+  .slider-container {
+    max-width: 980px; /* approx 3 * cube width + gaps */
+    margin: auto;
+    overflow: hidden;
   }
 
+  /* Flex container for sliding track */
+  .slider-track {
+    display: flex;
+    gap: 30px;
+    transition: transform 0.6s ease-in-out;
+  }
+
+  /* Cube size same as before */
   .post-cube {
-    width: 300px;
+    flex: 0 0 300px;
     border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
@@ -473,51 +481,108 @@ document.addEventListener("DOMContentLoaded", function () {
   .cube1 { background: linear-gradient(135deg, #00c6ff, #0072ff); }
   .cube2 { background: linear-gradient(135deg, #f7971e, #ffd200); }
   .cube3 { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+  .cube4 { background: linear-gradient(135deg, #ff6a00, #ee0979); }
+  .cube5 { background: linear-gradient(135deg, #6a11cb, #2575fc); }
+  .cube6 { background: linear-gradient(135deg, #00f260, #0575e6); }
 
   @media (max-width: 960px) {
     .post-cube-grid {
       flex-direction: column;
       align-items: center;
     }
+    .slider-container {
+      max-width: 320px;
+    }
+    .post-cube {
+      flex: 0 0 100%;
+      max-width: 320px;
+    }
   }
 </style>
 
 <section class="featured-cube-posts">
   <h2>⭐ Featured Blog Posts</h2>
-  <div class="post-cube-grid">
 
-    <!-- Cube 1 -->
-    <div class="post-cube cube1">
-      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUeG5ej_Ij6rn0QJAkVXOFSNpk9Jy5r2QWNmd6KRtZIrKn3ogqr1o27YmMCv-2TB36YmOjLvCep01TpSCKqT0JiLslEE50WvKvCfJa69-YP9fta93ZEzXNR0sC64RyhhsfHt3z0OgTPPhGNUa5ObQT6iJ-BqFa2GXIcj12uKSXnlgqce85h9zuPo77jyA/s1536/Bard_Generated_Image.jpg" alt="Hidden oceans under glaciers">
-      <div class="content">
-        <h3>Hidden oceans under the glaciers</h3>
-        <p>Dive Deep: Exploring the Hidden Oceans Beneath Glaciers.</p>
-        <a href="https://www.thenaturescientist.com/2024/02/hiddenoceansundertheglaciers.html">Read More</a>
+  <div class="slider-container">
+    <div class="slider-track" id="sliderTrack">
+
+      <!-- Cube 1 -->
+      <div class="post-cube cube1">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUeG5ej_Ij6rn0QJAkVXOFSNpk9Jy5r2QWNmd6KRtZIrKn3ogqr1o27YmMCv-2TB36YmOjLvCep01TpSCKqT0JiLslEE50WvKvCfJa69-YP9fta93ZEzXNR0sC64RyhhsfHt3z0OgTPPhGNUa5ObQT6iJ-BqFa2GXIcj12uKSXnlgqce85h9zuPo77jyA/s1536/Bard_Generated_Image.jpg" alt="Hidden oceans under glaciers">
+        <div class="content">
+          <h3>Hidden oceans under the glaciers</h3>
+          <p>Dive Deep: Exploring the Hidden Oceans Beneath Glaciers.</p>
+          <a href="https://www.thenaturescientist.com/2024/02/hiddenoceansundertheglaciers.html">Read More</a>
+        </div>
       </div>
-    </div>
 
-    <!-- Cube 2 -->
-    <div class="post-cube cube2">
-      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEihQsLrhccb_rf-0doPJpBXGdg2YxfVPkwWujyuM4gaRTlQaKIpUpAE1y86TeVu97WSttivU3fMCs1P25K7pGEcK-UokaJIozD5xpaIOTziytS7xkpoGNxjs6P4WL0JGh_fqz5rpOQqgdaCfwAfdoUhJzy0px099y_GByU_3P9b88IenRFeosdqDFaRJ_o" alt="Build a Farm That Pays">
-      <div class="content">
-        <h3>Plant the Dream, Grow the Hustle</h3>
-        <p>Starting a small farm is not just about cultivating land—it’s about cultivating a life.</p>
-        <a href="https://www.thenaturescientist.com/2025/05/farmwhichpays.html">Read More</a>
+      <!-- Cube 2 -->
+      <div class="post-cube cube2">
+        <img src="https://blogger.googleusercontent.com/img/a/AVvXsEihQsLrhccb_rf-0doPJpBXGdg2YxfVPkwWujyuM4gaRTlQaKIpUpAE1y86TeVu97WSttivU3fMCs1P25K7pGEcK-UokaJIozD5xpaIOTziytS7xkpoGNxjs6P4WL0JGh_fqz5rpOQqgdaCfwAfdoUhJzy0px099y_GByU_3P9b88IenRFeosdqDFaRJ_o" alt="Build a Farm That Pays">
+        <div class="content">
+          <h3>Plant the Dream, Grow the Hustle</h3>
+          <p>Starting a small farm is not just about cultivating land—it’s about cultivating a life.</p>
+          <a href="https://www.thenaturescientist.com/2025/05/farmwhichpays.html">Read More</a>
+        </div>
       </div>
-    </div>
 
-    <!-- Cube 3 -->
-    <div class="post-cube cube3">
-      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjvT7hZ64CTaQTNFcv6KUCjIWm11v7JRU3cq-0H6aBKoz9_2rR6NbwUtpQilgBP3dH1ExUnNSmjQgul5xDAHwFwxSPWbrkd4Viok3gHoXFYHWg-co0V4SqiFF7JO-PBzWv-cSlCZy52aAfjwpJzIWjvfgizgEmWpxm5uepRQF-Xcy2okzMx-HrAcULFY88/s2247/harvest.jpeg" alt="Gardening Lifestyle">
-      <div class="content">
-        <h3>How Gardening Fosters a Healthier Lifestyle</h3>
-        <p>Explore how growing your own garden provides a myriad of benefits for your health.</p>
-        <a href="https://www.thenaturescientist.com/2024/09/gardening.html">Read More</a>
+      <!-- Cube 3 -->
+      <div class="post-cube cube3">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjvT7hZ64CTaQTNFcv6KUCjIWm11v7JRU3cq-0H6aBKoz9_2rR6NbwUtpQilgBP3dH1ExUnNSmjQgul5xDAHwFwxSPWbrkd4Viok3gHoXFYHWg-co0V4SqiFF7JO-PBzWv-cSlCZy52aAfjwpJzIWjvfgizgEmWpxm5uepRQF-Xcy2okzMx-HrAcULFY88/s2247/harvest.jpeg" alt="Gardening Lifestyle">
+        <div class="content">
+          <h3>How Gardening Fosters a Healthier Lifestyle</h3>
+          <p>Explore how growing your own garden provides a myriad of benefits for your health.</p>
+          <a href="https://www.thenaturescientist.com/2024/09/gardening.html">Read More</a>
+        </div>
       </div>
-    </div>
 
+      <!-- Additional cubes if you want to add more -->
+      <div class="post-cube cube4">
+        <img src="https://via.placeholder.com/300x180/ff6a00/ffffff?text=Post+4" alt="Post 4">
+        <div class="content">
+          <h3>Post Title 4</h3>
+          <p>Space for new paid contributers.</p>
+          <a href="#">Read More</a>
+        </div>
+      </div>
+
+      <div class="post-cube cube5">
+        <img src="https://via.placeholder.com/300x180/6a11cb/ffffff?text=Post+5" alt="Post 5">
+        <div class="content">
+          <h3>Post Title 5</h3>
+          <p>Space for new paid contributers.</p>
+          <a href="#">Read More</a>
+        </div>
+      </div>
+
+      <div class="post-cube cube6">
+        <img src="https://via.placeholder.com/300x180/00f260/ffffff?text=Post+6" alt="Post 6">
+        <div class="content">
+          <h3>Post Title 6</h3>
+          <p>Space for new paid contributers.</p>
+          <a href="#">Read More</a>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
+
+<script>
+  const track = document.getElementById('sliderTrack');
+  const cubes = document.querySelectorAll('.post-cube');
+  const totalCubes = cubes.length;
+  const visibleCubes = 3;
+  let index = 0;
+
+  setInterval(() => {
+    index++;
+    if (index > totalCubes - visibleCubes) index = 0;
+    const moveX = -(index * (300 + 30)); // 300px width + 30px gap
+    track.style.transform = `translateX(${moveX}px)`;
+  }, 4000); // slides every 4 seconds
+</script>
+
 
 
 
