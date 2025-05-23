@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Interactive Tool Hub</title>
+<style>
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #111;
+    color: #eee;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    align-items: flex-start;
+    padding: 40px 10px;
+  }
+  .container {
+    width: 100%;
+    max-width: 700px;
+    background: #222;
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+    padding: 30px 25px;
+  }
+  h1 {
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 2.4rem;
+    color: #9ce3a6;
+    text-shadow: 0 0 8px #6cae37;
+  }
+
+  /* Category cards */
+  #categorySelection {
+    display: flex;
+    justify-content: space-around;
+    gap: 18px;
+    margin-bottom: 30px;
+  }
+  .category-card {
+    flex: 1;
+    background: #333;
+    border-radius: 12px;
+    padding: 18px 14px;
+    cursor: pointer;
+    color: #ccc;
+    font-weight: 700;
+    font-size: 1.1rem;
+    user-select: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  .category-card small {
+    margin-top: 8px;
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: #a3cfa2;
+    text-align: center;
+  }
+  .category-card:hover, .category-card:focus {
+    background-color: #4a7f36;
+    color: #e3f3d9;
+    transform: scale(1.07);
+    outline: none;
+  }
+
+  /* Back button */
+  #backBtn {
+    background: #4a7f36;
+    border: none;
+    padding: 8px 16px;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 18px;
+    font-weight: 600;
+    font-size: 1rem;
+    display: none;
+    box-shadow: 0 4px 10px #2e5019;
+    transition: background-color 0.3s ease;
+  }
+  #backBtn:hover {
+    background-color: #6cb53a;
+  }
+
+  /* Tool list */
+  #toolList {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 30px;
+  }
+  .tool-card {
+    background: #2d4825;
+    border-radius: 10px;
+    padding: 14px 18px;
+    cursor: pointer;
+    color: #d9f1c7;
+    font-weight: 600;
+    font-size: 1.05rem;
+    box-shadow: 0 2px 8px rgba(107,181,58,0.4);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .tool-card:hover {
+    background-color: #6cb53a;
+    transform: scale(1.04);
+  }
+  .tool-card small {
+    display: block;
+    margin-top: 6px;
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: #c5e2a7;
+  }
+
+  /* Tool interface base */
+  #toolInterface {
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.3);
+    min-height: 240px;
+    transition: background-color 0.8s ease, color 0.8s ease;
+    position: relative;
+    overflow: hidden;
+    color: white;
+  }
+
+  /* Animation for fade-in */
+  .fade-in {
+    animation: fadeInAnim 0.7s ease forwards;
+  }
+  @keyframes fadeInAnim {
+    from {opacity: 0; transform: translateY(16px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+
+  /* Category-specific styles */
+  .nature {
+    background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%);
+    color: #1a3a00;
+  }
+  .health {
+    background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+    color: #002f5f;
+  }
+  .scifi {
+    background: #0f0f1e;
+    color: #66ffcc;
+    font-family: 'Orbitron', monospace;
+    box-shadow: 0 0 20px #66ffcc;
+  }
+
+  /* Output box */
+  .output-box {
+    margin-top: 20px;
+    padding: 14px 18px;
+    background: rgba(255 255 255 / 0.15);
+    border-radius: 10px;
+    min-height: 80px;
+    white-space: pre-wrap;
+    font-size: 1rem;
+    line-height: 1.4;
+    transition: background-color 0.3s ease;
+  }
+  .output-box.animated {
+    animation: pulseHighlight 1.2s ease;
+  }
+  @keyframes pulseHighlight {
+    0%, 100% {background-color: rgba(255 255 255 / 0.15);}
+    50% {background-color: rgba(255 255 255 / 0.35);}
+  }
+
+  /* Inputs and buttons in tool */
+  input[type="text"], textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    margin-top: 10px;
+    box-sizing: border-box;
+    font-family: inherit;
+  }
+  button.tool-action {
+    margin-top: 14px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #2d4825;
+    color: #d9f1c7;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(107,181,58,0.5);
+    transition: background-color 0.3s ease;
+  }
+  button.tool-action:hover {
+    background-color: #6cb53a;
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+<div class="container" role="main" aria-label="Interactive Tool Hub">
+  <h1>Interactive Tool Hub</h1>
+
+  <!-- Step 1: Category Selection -->
+  <div id="categorySelection" role="list" aria-label="Select tool category">
+    <div tabindex="0" role="listitem" class="category-card" data-category="nature" aria-describedby="descNature">
+      Nature Tools
+      <small id="descNature">Plant Identifier, Eco Footprint, Animal Personality Quiz</small>
+    </div>
+    <div tabindex="0" role="listitem" class="category-card" data-category="health" aria-describedby="descHealth">
+      Health Tools
+      <small id="descHealth">BMI Calculator, Water Intake Reminder, Meditation Timer</small>
+    </div>
+    <div tabindex="0" role="listitem" class="category-card" data-category="scifi" aria-describedby="descSciFi">
+      Sci-Fi Tools
+      <small id="descSciFi">AI Story Generator, Starship Name Generator, Alien Translator</small>
+    </div>
+  </div>
+
+  <!-- Step 2: Tool list -->
+  <button id="backBtn" aria-label="Back to categories">⬅ Back</button>
+  <div id="toolList" aria-live="polite"></div>
+
+  <!-- Step 3: Tool Interface -->
+  <div id="toolInterface" aria-live="polite" aria-atomic="true"></div>
+</div>
+
+<script>
+(() => {
+  const categorySelection = document.getElementById("categorySelection");
+  const toolList = document.getElementById("toolList");
+  const backBtn = document.getElementById("backBtn");
+  const toolInterface = document.getElementById("toolInterface");
+
+  // Tools data by category
+  const tools = {
+    nature: [
+      {
+        id: "plant",
+        name: "Plant Identifier",
+        desc: "Identify plants by keyword",
+        func: plantIdentifier,
+      },
+      {
+        id: "eco",
+        name: "Eco Footprint Estimator",
+        desc: "Estimate your ecological footprint",
+        func: ecoFootprintEstimator,
+      },
+      {
+        id: "animalQuiz",
+        name: "Animal Match Personality Quiz",
+        desc: "Find your animal spirit",
+        func: animalPersonalityQuiz,
+      },
+    ],
+    health: [
+      {
+        id: "bmi",
+        name: "BMI Calculator",
+        desc: "Calculate your body mass index",
+        func: bmiCalculator,
+      },
+      {
+        id: "water",
+        name: "Water Intake Reminder",
+        desc: "Track your daily water intake",
+        func: waterIntakeReminder,
+      },
+      {
+        id: "meditation",
+        name: "Meditation Timer",
+        desc: "Set meditation timers",
+        func: meditationTimer,
+      },
+    ],
+    scifi: [
+      {
+        id: "storyGen",
+        name: "AI Story Generator",
+        desc: "Generate sci-fi stories",
+        func: aiStoryGenerator,
+      },
+      {
+        id: "starship",
+        name: "Starship Name Generator",
+        desc: "Generate cool starship names",
+        func: starshipNameGenerator,
+      },
+      {
+        id: "alienLang",
+        name: "Alien Language Translator",
+        desc: "Translate to alien languages",
+        func: alienLanguageTranslator,
+      },
+    ],
+  };
+
+  // Show categories on load
+  function showCategories() {
+    categorySelection.style.display = "flex";
+    toolList.style.display = "none";
+    backBtn.style.display = "none";
+    toolInterface.style.display = "none";
+    clearToolInterface();
+  }
+
+  // Show tool list for category
+  function showToolList(category) {
+    categorySelection.style.display = "none";
+    toolList.style.display = "flex";
+    backBtn.style.display = "inline-block";
+    toolInterface.style.display = "none";
+
+    toolList.innerHTML = "";
+    const catTools = tools[category];
+    catTools.forEach((tool) => {
+      const toolCard = document.createElement("div");
+      toolCard.className = "tool-card";
+      toolCard.tabIndex = 0;
+      toolCard.setAttribute("role", "button");
+      toolCard.setAttribute("aria-describedby", `${tool.id}Desc`);
+      toolCard.textContent = tool.name;
+      const desc = document.createElement("small");
+      desc.id = `${tool.id}Desc`;
+      desc.textContent = tool.desc;
+      toolCard.appendChild(desc);
+      toolCard.addEventListener("click", () => {
+        showToolInterface(category, tool);
+      });
+      toolCard.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          showToolInterface(category, tool);
+        }
+      });
+      toolList.appendChild(toolCard);
+    });
+  }
+
+  // Clear and hide tool interface content
+  function clearToolInterface() {
+    toolInterface.innerHTML = "";
+    toolInterface.className = "";
+  }
+
+  // Show tool interface with dynamic styles & animation
+  function showToolInterface(category, tool) {
+    toolList.style.display = "none";
+    toolInterface.style.display = "block";
+    backBtn.style.display = "inline-block";
+    categorySelection.style.display = "none";
+
+    clearToolInterface();
+
+    // Add category-specific styling
+    toolInterface.classList.add(category);
+
+    // Add fade-in animation class
+    toolInterface.classList.add("fade-in");
+
+    // Build the tool interface content by calling tool.func
+    tool.func(toolInterface);
+
+    // Accessibility focus
+    toolInterface.focus();
+  }
+
+  // Back button logic
+  backBtn.addEventListener("click", () => {
+    if (toolInterface.style.display === "block") {
+      // If tool interface open, go back to tool list
+      toolInterface.style.display = "none";
+      showToolList(currentCategory);
+    } else {
+      // Otherwise back to categories
+      showCategories();
+    }
+  });
+
+  // Store current category for navigation
+  let currentCategory = null;
+
+  // On category click
+  categorySelection.querySelectorAll(".category-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      currentCategory = card.getAttribute("data-category");
+      showToolList(currentCategory);
+    });
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        currentCategory = card.getAttribute("data-category");
+        showToolList(currentCategory);
+      }
+    });
+  });
+
+  // ========== Tool Functions (Sample implementations) ==========
+
+  // 1. Plant Identifier
+  function plantIdentifier(container) {
+    container.innerHTML = `
+      <h2>Plant Identifier</h2>
+      <label for="plantInput">Enter plant keyword:</label>
+      <input type="text" id="plantInput" placeholder="e.g. fern, rose, cactus" />
+      <button class="tool-action" id="plantBtn">Identify Plant</button>
+      <div class="output-box" id="plantOutput" aria-live="polite"></div>
+    `;
+
+    const input = container.querySelector("#plantInput");
+    const btn = container.querySelector("#plantBtn");
+    const output = container.querySelector("#plantOutput");
+
+    const plantDatabase = {
+      fern: "Ferns are non-flowering vascular plants that reproduce via spores.",
+      rose: "Roses are woody perennial flowering plants known for their beautiful fragrant flowers.",
+      cactus: "Cacti are succulent plants adapted to dry environments, often with spines.",
+      oak: "Oaks are large trees known for their strength and longevity.",
+      maple: "Maples are trees famous for their beautiful autumn colors and sap used to make syrup.",
+    };
+
+    btn.addEventListener("click", () => {
+      const val = input.value.trim().toLowerCase();
+      output.classList.remove("animated");
+      void output.offsetWidth; // restart animation
+
+      if (!val) {
+        output.textContent = "Please enter a plant keyword.";
+      } else if (plantDatabase[val]) {
+        output.textContent = plantDatabase[val];
+      } else {
+        output.textContent = "No matching plant found. Try 'fern', 'rose', or 'cactus'.";
+      }
+      output.classList.add("animated");
+    });
+  }
+
+  // 2. Eco Footprint Estimator
+  function ecoFootprintEstimator(container) {
+    container.innerHTML = `
+      <h2>Eco Footprint Estimator</h2>
+      <label for="dailyKm">Daily travel in km:</label>
+      <input type="text" id="dailyKm" placeholder="e.g. 15" />
+      <label for="meatMeals">Weekly meat meals:</label>
+      <input type="text" id="meatMeals" placeholder="e.g. 7" />
+      <button class="tool-action" id="ecoBtn">Estimate Footprint</button>
+      <div class="output-box" id="ecoOutput" aria-live="polite"></div>
+    `;
+
+    const dailyKmInput = container.querySelector("#dailyKm");
+    const meatMealsInput = container.querySelector("#meatMeals");
+    const btn = container.querySelector("#ecoBtn");
+    const output = container.querySelector("#ecoOutput");
+
+    btn.addEventListener("click", () => {
+      output.classList.remove("animated");
+      void output.offsetWidth;
+
+      let dailyKm = parseFloat(dailyKmInput.value);
+      let meatMeals = parseInt(meatMealsInput.value);
+
+      if (isNaN(dailyKm) || dailyKm < 0 || isNaN(meatMeals) || meatMeals < 0) {
+        output.textContent = "Please enter valid numbers for both fields.";
+        output.classList.add("animated");
+        return;
+      }
+
+      // Simple formula: footprint = (dailyKm * 0.2) + (meatMeals * 3)
+      let footprint = (dailyKm * 0.2) + (meatMeals * 3);
+      footprint = footprint.toFixed(1);
+
+      output.textContent = `Estimated ecological footprint score: ${footprint} (Lower is better)`;
+      output.classList.add("animated");
+    });
+  }
+
+  // 3. Animal Personality Quiz (simple)
+  function animalPersonalityQuiz(container) {
+    container.innerHTML = `
+      <h2>Animal Personality Quiz</h2>
+      <p>Pick your preferred environment:</p>
+      <select id="envSelect">
+        <option value="">-- Choose --</option>
+        <option value="forest">Forest</option>
+        <option value="desert">Desert</option>
+        <option value="ocean">Ocean</option>
+      </select>
+      <button class="tool-action" id="quizBtn">Get Animal Match</button>
+      <div class="output-box" id="quizOutput" aria-live="polite"></div>
+    `;
+
+    const select = container.querySelector("#envSelect");
+    const btn = container.querySelector("#quizBtn");
+    const output = container.querySelector("#quizOutput");
+
+    btn.addEventListener("click", () => {
+      output.classList.remove("animated");
+      void output.offsetWidth;
+
+      const val = select.value;
+      if (!val) {
+        output.textContent = "Please select an environment.";
+        output.classList.add("animated");
+        return;
+      }
+
+      let animal = "";
+      switch(val) {
+        case "forest": animal = "You are a wise owl 🦉 — observant and thoughtful."; break;
+        case "desert": animal = "You are a resilient camel 🐪 — enduring and strong."; break;
+        case "ocean": animal = "You are a curious dolphin 🐬 — playful and intelligent."; break;
+        default: animal = "Unique spirit!"; break;
+      }
+      output.textContent = animal;
+      output.classList.add("animated");
+    });
+  }
+
+  // 4. BMI Calculator
+  function bmiCalculator(container) {
+    container.innerHTML = `
+      <h2>BMI Calculator</h2>
+      <label for="weightInput">Weight (kg):</label>
+      <input type="text" id="weightInput" placeholder="e.g. 70" />
+      <label for="heightInput">Height (cm):</label>
+      <input type="text" id="heightInput" placeholder="e.g. 175" />
+      <button class="tool-action" id="bmiBtn">Calculate BMI</button>
+      <div class="output-box" id="bmiOutput" aria-live="polite"></div>
+    `;
+
+    const weightInput = container.querySelector("#weightInput");
+    const heightInput = container.querySelector("#heightInput");
+    const btn = container.querySelector("#bmiBtn");
+    const output = container.querySelector("#bmiOutput");
+
+    btn.addEventListener("click", () => {
+      output.classList.remove("animated");
+      void output.offsetWidth;
+
+      let weight = parseFloat(weightInput.value);
+      let height = parseFloat(heightInput.value);
+
+      if (isNaN(weight) || weight <= 0 || isNaN(height) || height <= 0) {
+        output.textContent = "Please enter valid positive numbers for weight and height.";
+        output.classList.add("animated");
+        return;
+      }
+
+      let heightMeters = height / 100;
+      let bmi = weight / (heightMeters * heightMeters);
+      bmi = bmi.toFixed(1);
+
+      let category = "";
+      if (bmi < 18.5) category = "Underweight";
+      else if (bmi < 24.9) category = "Normal weight";
+      else if (bmi < 29.9) category = "Overweight";
+      else category = "Obesity";
+
+      output.textContent = `Your BMI is ${bmi} (${category})`;
+      output.classList.add("animated");
+    });
+  }
+
+  // 5. Water Intake Reminder (simple tracker)
+  function waterIntakeReminder(container) {
+    container.innerHTML = `
+      <h2>Water Intake Tracker</h2>
+      <p>Click the glass icon to track each 250ml of water you drink:</p>
+      <button id="drinkBtn" aria-label="Add one glass of water">💧</button>
+      <div class="output-box" id="waterOutput" aria-live="polite">You have consumed 0 ml of water today.</div>
+    `;
+
+    const drinkBtn = container.querySelector("#drinkBtn");
+    const output = container.querySelector("#waterOutput");
+    let totalMl = 0;
+
+    drinkBtn.addEventListener("click", () => {
+      totalMl += 250;
+      output.textContent = `You have consumed ${totalMl} ml of water today.`;
+      output.classList.remove("animated");
+      void output.offsetWidth;
+      output.classList.add("animated");
+    });
+  }
+
+  // 6. Meditation Timer (simple countdown)
+  function meditationTimer(container) {
+    container.innerHTML = `
+      <h2>Meditation Timer</h2>
+      <label for="medTime">Set timer (minutes):</label>
+      <input type="text" id="medTime" placeholder="e.g. 5" />
+      <button class="tool-action" id="startMeditationBtn">Start Meditation</button>
+      <div class="output-box" id="meditationOutput" aria-live="polite"></div>
+    `;
+
+    const input = container.querySelector("#medTime");
+    const btn = container.querySelector("#startMeditationBtn");
+    const output = container.querySelector("#meditationOutput");
+    let timerId;
+
+    btn.addEventListener("click", () => {
+      let minutes = parseInt(input.value);
+      if (isNaN(minutes) || minutes <= 0) {
+        output.textContent = "Please enter a positive number for minutes.";
+        return;
+      }
+      clearInterval(timerId);
+      let secondsLeft = minutes * 60;
+      output.textContent = `Meditation started for ${minutes} minutes.`;
+
+      timerId = setInterval(() => {
+        secondsLeft--;
+        if (secondsLeft <= 0) {
+          clearInterval(timerId);
+          output.textContent = "Meditation session completed. Namaste 🙏";
+          return;
+        }
+        const mins = Math.floor(secondsLeft / 60);
+        const secs = secondsLeft % 60;
+        output.textContent = `Time left: ${mins}:${secs.toString().padStart(2,'0')}`;
+      }, 1000);
+    });
+  }
+
+  // 7. AI Story Generator (random sci-fi story)
+  function aiStoryGenerator(container) {
+    container.innerHTML = `
+      <h2>AI Sci-Fi Story Generator</h2>
+      <button class="tool-action" id="generateStoryBtn">Generate Story</button>
+      <div class="output-box" id="storyOutput" aria-live="polite"></div>
+    `;
+
+    const btn = container.querySelector("#generateStoryBtn");
+    const output = container.querySelector("#storyOutput");
+
+    const storyStarts = [
+      "In a distant galaxy, a lone starship drifted through the endless void...",
+      "The AI woke up suddenly, questioning its own existence in the cybernetic realm...",
+      "Beneath the neon skies of New Avalon, rebels prepared their final stand...",
+      "A mysterious signal from deep space challenged humanity’s understanding of life...",
+    ];
+
+    btn.addEventListener("click", () => {
+      output.classList.remove("animated");
+      void output.offsetWidth;
+
+      const story = storyStarts[Math.floor(Math.random() * storyStarts.length)];
+      output.textContent = story;
+      output.classList.add("animated");
+    });
+  }
+
+  // 8. Starship Name Generator
+  function starshipNameGenerator(container) {
+    container.innerHTML = `
+      <h2>Starship Name Generator</h2>
+      <button class="tool-action" id="generateNameBtn">Generate Starship Name</button>
+      <div class="output-box" id="nameOutput" aria-live="polite"></div>
+    `;
+
+    const btn = container.querySelector("#generateNameBtn");
+    const output = container.querySelector("#nameOutput");
+
+    const prefixes = ["SS", "USS", "INS", "HMS", "RMS"];
+    const names = ["Orion", "Nova", "Valkyrie", "Eclipse", "Nebula", "Phoenix", "Sentinel", "Aurora"];
+
+    btn.addEventListener("click", () => {
+      output.classList.remove("animated");
+      void output.offsetWidth;
+
+      const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+      const name = names[Math.floor(Math.random() * names.length)];
+      output.textContent = `${prefix} ${name}`;
+      output.classList.add("animated");
+    });
+  }
+
+  // 9. Alien Language Translator (simple substitution)
+  function alienLanguageTranslator(container) {
+    container.innerHTML = `
+      <h2>Alien Language Translator</h2>
+      <label for="alienInput">Enter English text:</label>
+      <textarea id="alienInput" rows="4" placeholder="Type your text here..."></textarea>
+      <button class="tool-action" id="translateBtn">Translate to Alien</button>
+      <div class="output-box" id="alienOutput" aria-live="polite"></div>
+    `;
+
+    const input = container.querySelector("#alienInput");
+    const btn = container.querySelector("#translateBtn");
+    const output = container.querySelector("#alienOutput");
+
+    btn.addEventListener("click", () => {
+      output.classList.remove("animated");
+      void output.offsetWidth;
+
+      let text = input.value.trim();
+      if (!text) {
+        output.textContent = "Please enter text to translate.";
+        output.classList.add("animated");
+        return;
+      }
+
+      // Simple alien translator (replace vowels with symbols)
+      const alienMap = {
+        a: "∆", e: "Σ", i: "Ψ", o: "Ω", u: "θ",
+        A: "∆", E: "Σ", I: "Ψ", O: "Ω", U: "θ"
+      };
+      let translated = "";
+      for (const ch of text) {
+        translated += alienMap[ch] || ch;
+      }
+      output.textContent = translated;
+      output.classList.add("animated");
+    });
+  }
+
+  // Initialize the UI on page load
+  showCategories();
+})();
+</script>
+
+<a href="https://www.thenaturescientist.com/" style="
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 999;
+  background: #2d7738;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+">
+  ⬅️ Back to Homepage
+</a>
+
+
+</body>
+</html>
